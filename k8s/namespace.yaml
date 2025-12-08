@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: a2a-customer-service
+  labels:
+    app.kubernetes.io/name: a2a-customer-service
+    app.kubernetes.io/part-of: customer-service-platform
+

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: a2a-config
+  namespace: a2a-customer-service
+  labels:
+    app.kubernetes.io/name: a2a-customer-service
+data:
+  # Redis configuration
+  REDIS_URL: "redis://redis:6379"
+  
+  # Agent URLs (Kubernetes service discovery)
+  INTENT_AGENT_URL: "http://intent-agent:8001"
+  BOOKING_AGENT_URL: "http://booking-agent:8002"
+  BILLING_AGENT_URL: "http://billing-agent:8003"
+  
+  # AWS Region
+  AWS_REGION: "us-east-1"
+  
+  # Logging
+  LOG_LEVEL: "INFO"
+
