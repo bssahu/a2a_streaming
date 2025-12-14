@@ -116,3 +116,5 @@ class TestIntentResult:
         
         assert result.suggested_response == "How can I help you today?"
 
+
+

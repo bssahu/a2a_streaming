@@ -81,7 +81,12 @@ class RedisManager:
         if self._pubsub:
             await self._pubsub.close()
         if self._client:
-            await self._client.close()
+            # redis-py 5.x prefers aclose(); close() is deprecated.
+            aclose = getattr(self._client, "aclose", None)
+            if callable(aclose):
+                await aclose()
+            else:
+                await self._client.close()
         logger.info("Disconnected from Redis")
         
     @property

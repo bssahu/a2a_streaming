@@ -39,6 +39,7 @@ Issues = "https://github.com/bssahu/a2a_streaming/issues"
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_functions = ["test_*"]
@@ -94,4 +95,6 @@ exclude_lines = [
     "raise NotImplementedError",
     "if TYPE_CHECKING:",
 ]
+
+
 

@@ -213,6 +213,8 @@ class IntentDetectorMock:
     BILLING_KEYWORDS = [
         "invoice", "bill", "payment", "charge", "refund", "price",
         "subscription", "receipt", "statement", "pay", "cost",
+        # Common billing/account wording
+        "balance", "account balance", "amount due", "due",
     ]
     
     async def detect(self, message: str) -> IntentResult:
@@ -238,4 +240,6 @@ class IntentDetectorMock:
             reasoning=f"Keyword match: booking={booking_score}, billing={billing_score}",
             extracted_entities={},
         )
+
+
 

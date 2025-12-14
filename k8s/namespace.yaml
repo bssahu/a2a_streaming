@@ -6,3 +6,5 @@ metadata:
     app.kubernetes.io/name: a2a-customer-service
     app.kubernetes.io/part-of: customer-service-platform
 
+
+

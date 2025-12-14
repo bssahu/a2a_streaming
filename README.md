@@ -259,6 +259,10 @@ curl -N -X POST http://localhost:8001/tasks/resubscribe \
 
 Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
+## 📝 Blog
+
+- **Redis as the Streaming Backbone for A2A Customer Service**: [`docs/blog/redis-as-the-streaming-backbone.md`](docs/blog/redis-as-the-streaming-backbone.md)
+
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit your changes (`git commit -m 'feat: add amazing feature'`)

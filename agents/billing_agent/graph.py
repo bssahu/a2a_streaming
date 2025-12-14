@@ -480,3 +480,5 @@ def get_billing_graph():
         billing_graph = create_billing_graph()
     return billing_graph
 
+
+

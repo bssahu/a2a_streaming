@@ -270,3 +270,5 @@ class TaskArtifactNotification(BaseModel):
     method: str = "tasks/artifact"
     params: Dict[str, Any]  # Contains taskId and artifact
 
+
+

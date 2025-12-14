@@ -4,25 +4,17 @@ Pytest configuration and fixtures for A2A Customer Service tests.
 
 import os
 import sys
-import asyncio
 from typing import AsyncGenerator
 
 import pytest
 import pytest_asyncio
+import redis.exceptions
 
 # Add project root to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from common.redis_manager import RedisManager
 from common.a2a_protocol import Message, TextPart
-
-
-@pytest.fixture(scope="session")
-def event_loop():
-    """Create an event loop for the test session."""
-    loop = asyncio.get_event_loop_policy().new_event_loop()
-    yield loop
-    loop.close()
 
 
 @pytest_asyncio.fixture
@@ -33,12 +25,25 @@ async def redis_manager() -> AsyncGenerator[RedisManager, None]:
     
     try:
         await manager.connect()
+    except redis.exceptions.ConnectionError:
+        # If Redis isn't running locally, fall back to an in-memory fake so tests
+        # are hermetic and don't require external services.
+        try:
+            import fakeredis.aioredis as fakeredis_aioredis
+        except ImportError:  # pragma: no cover
+            pytest.skip("Redis not available and fakeredis not installed")
+        manager._client = fakeredis_aioredis.FakeRedis(decode_responses=True, db=15)
         yield manager
     finally:
         # Cleanup test data
         if manager._client:
             await manager._client.flushdb()
-        await manager.disconnect()
+        # RedisManager.disconnect() assumes an awaitable close() method; fakeredis
+        # provides that, but guard just in case.
+        try:
+            await manager.disconnect()
+        except TypeError:
+            pass
 
 
 @pytest.fixture
@@ -75,4 +80,6 @@ def general_message() -> Message:
         role="user",
         parts=[TextPart(text="What services do you offer?")],
     )
+
+
 

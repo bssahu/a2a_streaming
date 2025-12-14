@@ -375,3 +375,5 @@ class IntentAgent(A2AServer):
                 texts.append(part.text)
         return " ".join(texts)
 
+
+
